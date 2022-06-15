@@ -15,11 +15,11 @@ employeeRouter.route('/')
 });
 
 employeeRouter.route('/add')
-.post((req, res, next) =>{
+.post((req, res) =>{
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const telephone = Number(req.body.telephone);
-    const ID = req.body.id;
+    const ID = req.body.serial;
     const email = req.body.email;
     const location = req.body.location;
     const commencement = Date.parse(req.body.commencement);
@@ -43,7 +43,7 @@ employeeRouter.route('/add')
 
 employeeRouter.route('/:id')
 .get((req, res) =>{
-    Employee.findById(req.params.id)
+    Employee.findByIdan(req.params.id)
     .then((doc) =>{
         res.statusCode = 200;
         res.json(doc);
@@ -68,10 +68,10 @@ employeeRouter.route('/update/:id')
             const firstname = req.body.firstname;
             const lastname = req.body.lastname;
             const telephone = Number(req.body.telephone);
-            const ID = req.body.id;
+            const ID = req.body.serial;
             const email = req.body.email;
             const location = req.body.location;
-            const commencement = Date.parse(req.body.commencement);
+            const commencement = req.body.commencement;
             const department = req.body.department;
         
             const newEmployee = new Employee({
@@ -86,7 +86,7 @@ employeeRouter.route('/update/:id')
             });
         
             newEmployee.save()
-            .then(() => res.json(docs, 'Added'))
+            .then(() => res.json(docs, 'Update'))
             .catch(err => res.status(400).json('Error: ' + err));
         });
 });

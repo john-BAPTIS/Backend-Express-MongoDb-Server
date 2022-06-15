@@ -20,7 +20,7 @@ usersRouter.route('/add')
     const newUser = new Users({username});
 
     newUser.save()
-    .then(() => res.json(username, 'added!'))
+    .then(() => res.json(username, 'Username added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 //Use res.status(status).json(obj)
